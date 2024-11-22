@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('git-install') {
+            steps {
+                sh 'sudo yum install git -y'
+            }
+        }
+
+        stage('git-pull') {
+            steps {
+                git 'https://github.com/shashirajraja/onlinebookstore.git'
+            }
+
+        }
+
+        stage('maven-install') {
+            steps {
+                sh 'sudo yum install maven -y'
+            }
+            
+        }
+
+        stage('package-build') {
+            steps {
+                sh 'mvn clean package'
+            }
+            
+        }
+        
+    }
+}
